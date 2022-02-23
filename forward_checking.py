@@ -1,5 +1,3 @@
-from turtle import forward
-
 
 def forward_checking(sudoku):
     blocks = []
@@ -20,7 +18,6 @@ def forward_checking(sudoku):
             if(i == True):
                 if check(val, target.x, target.y, blocks):
                     sudoku[target.x][target.y] = val
-                    print(str(val))
                     tempSud = forward_checking(sudoku)
                     if tempSud:
                         return tempSud
@@ -59,9 +56,15 @@ def get_possible_values(x, y, sudoku):
     return bool_vals
 
 def check(val, x, y, blocks):
+    numTrue = 0
+    index = 0
     for i in blocks:
-        if len(i.possible) == 1:
-            if val == i.possible[0]:
+        for num, j in enumerate(i.possible):
+            if j == True:
+                numTrue = numTrue + 1
+                index = num
+        if numTrue == 1:
+            if val == index:
                 if x == i.x:
                     return False
                 if y == i.y:
